@@ -127,7 +127,7 @@ app.use('/api/salecategory', salecategoryRoutes);
 app.use('/api/salerequest', salesRequestRoutes);
 app.use('/api/sale-quotation-categories', saleQuotationCategoryRoutes);
 app.use('/api/sale-contract-categories', saleContractCategoryRoutes);
-app.use('/api', salesDeliveryRoutes);
+app.use('/api/del', salesDeliveryRoutes);
 app.use('/api/salescontracts', salesContractRoutes);
 app.use('/api/salesquotations', salesQuotationRoutes);
 app.use('/api/indent', indentRoutes); 
