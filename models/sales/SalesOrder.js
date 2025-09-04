@@ -19,6 +19,7 @@ const SalesOrderSchema = new mongoose.Schema({
   categoryId: { type: mongoose.Schema.Types.ObjectId, ref: 'SalesOrderCategory' },
   category: String,
   date: String,
+  generalConditions: [],
   customerName: String,
   deliveryLocation: String,
   deliveryAddress: String,

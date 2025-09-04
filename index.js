@@ -47,7 +47,7 @@ const generalConditionRoutes = require('./routes/masterdata/Generalcondition');
 const processRoutes = require('./routes/masterdata/Processlist');
 const saleContractCategoryRoutes = require('./routes/categories/saleContractCategoryRoutes');
 const salesContractRoutes = require('./routes/categories/salesContractRoutes');
-
+const history = require('connect-history-api-fallback');
 
 //CRM
 const contactRoutes = require('./routes/crm/contactRoutes'); // Ensure this is the correct path
@@ -204,7 +204,7 @@ app.use('/api/attendance', employeeRoutes);
 
 // API Routes
 app.use('/api/master-data', masterDataImportRoutes);
-
+app.use(history());
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Fallback route for SPA (React Router)

@@ -364,10 +364,10 @@ exports.createPO = async (req, res) => {
       poNumber = externalPONumber;
 
       // Check if external PO number already exists
-      const existingPO = await PurchaseOrder.findOne({ poNumber });
-      if (existingPO) {
-        return res.status(400).json({ error: 'PO number already exists' });
-      }
+      // const existingPO = await PurchaseOrder.findOne({ poNumber });
+      // if (existingPO) {
+      //   return res.status(400).json({ error: 'PO number already exists' });
+      // }
     } else {
       // Generate internal PO number
       if (!categoryId) {
