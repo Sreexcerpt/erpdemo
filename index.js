@@ -48,7 +48,7 @@ const processRoutes = require('./routes/masterdata/Processlist');
 const saleContractCategoryRoutes = require('./routes/categories/saleContractCategoryRoutes');
 const salesContractRoutes = require('./routes/categories/salesContractRoutes');
 const history = require('connect-history-api-fallback');
-
+const salesDeliveryRoutes = require('./routes/sales/salesDeliveryRoutes'); // Ensure this is the correct path
 //CRM
 const contactRoutes = require('./routes/crm/contactRoutes'); // Ensure this is the correct path
 const leadRoutes = require('./routes/crm/leadRoutes');
@@ -127,9 +127,10 @@ app.use('/api/salecategory', salecategoryRoutes);
 app.use('/api/salerequest', salesRequestRoutes);
 app.use('/api/sale-quotation-categories', saleQuotationCategoryRoutes);
 app.use('/api/sale-contract-categories', saleContractCategoryRoutes);
+app.use('/api', salesDeliveryRoutes);
 app.use('/api/salescontracts', salesContractRoutes);
 app.use('/api/salesquotations', salesQuotationRoutes);
-app.use('/api/indent', indentRoutes);
+app.use('/api/indent', indentRoutes); 
 app.use('/api/po-categories', poCategoryRoutes);
 
 app.use('/api/purchase-orders', purchaseOrderRoutes);
