@@ -244,7 +244,7 @@ async function generatePONumber(categoryId) {
     
     // Find ALL POs for this category to determine the highest number
     const existingPOs = await PurchaseOrder.find({ 
-      categoryId,
+      categoryId, poNumberType: 'internal'
     }).select('poNumber');
     
     let nextNumber = category.rangeFrom;

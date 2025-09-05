@@ -12,7 +12,7 @@ async function generateDeliveryNumber(categoryId) {
 
     // Find all existing Sales Deliveries for this category
     const existingDeliveries = await SalesDelivery.find({
-      categoryId,
+      categoryId, deliveryNumberType: 'internal'
     }).select('deliveryNumber');
 
     let nextNumber = category.rangeFrom;

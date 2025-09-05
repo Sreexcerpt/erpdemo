@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const salesDeliveryController = require('../../controllers/sales/salesDeliveryController');
+const salesDeliveryController = require('../../controllers/sales/salesdeliveryController');
 
 // Generate delivery number
 router.post('/generate-delivery-number', salesDeliveryController.generateDeliveryNumber);
@@ -9,7 +9,7 @@ router.post('/generate-delivery-number', salesDeliveryController.generateDeliver
 router.post('/salesdeliveries', salesDeliveryController.createSalesDelivery);
 router.get('/salesdeliveries', salesDeliveryController.getAllSalesDeliveries);
 router.get('/salesdeliveries/:id', salesDeliveryController.getSalesDeliveryById);
-router.put('/salesdeliveries/:id', salesDeliveryController.updateSalesDelivery);
+// router.put('/salesdeliveries/:id', salesDeliveryController.updateSalesDelivery);
 router.delete('/salesdeliveries/:id', salesDeliveryController.deleteSalesDelivery);
 
 // Special operations
