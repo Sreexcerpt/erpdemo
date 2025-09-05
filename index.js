@@ -106,7 +106,7 @@ app.get('/api/image/:filename', (req, res) => {
 });
 
 
-
+app.use('/api/del', salesDeliveryRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/material', materialRoutes);
 app.use('/api/vendor-categories', vendorCategoryRoutes);
@@ -127,7 +127,7 @@ app.use('/api/salecategory', salecategoryRoutes);
 app.use('/api/salerequest', salesRequestRoutes);
 app.use('/api/sale-quotation-categories', saleQuotationCategoryRoutes);
 app.use('/api/sale-contract-categories', saleContractCategoryRoutes);
-app.use('/api/del', salesDeliveryRoutes);
+
 app.use('/api/salescontracts', salesContractRoutes);
 app.use('/api/salesquotations', salesQuotationRoutes);
 app.use('/api/indent', indentRoutes); 
