@@ -206,6 +206,7 @@ app.use('/api/attendance', employeeRoutes);
 // API Routes
 app.use('/api/master-data', masterDataImportRoutes);
 app.use(history());
+
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Fallback route for SPA (React Router)
@@ -213,7 +214,7 @@ app.get('*', (req, res) => {
   res.sendFile(path.join(__dirname, 'dist', 'index.html'));
 });
 
-const PORT = process.env.PORT || 8000;
+const PORT = process.env.PORT || 8080;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
