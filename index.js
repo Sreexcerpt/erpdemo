@@ -206,7 +206,6 @@ app.use('/api/attendance', employeeRoutes);
 // API Routes
 app.use('/api/master-data', masterDataImportRoutes);
 app.use(history());
-
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Fallback route for SPA (React Router)
