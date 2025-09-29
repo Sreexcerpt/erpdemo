@@ -234,60 +234,60 @@ const PurchaseOrder = require('../../models/purchase/PurchaseOrder');
 const POCategory = require('../../models/categories/POCategory');
 const Quotation = require('../../models/purchase/Quotation');
 
-async function generatePONumber(categoryId) {
-  try {
-    const category = await POCategory.findById(categoryId);
-    if (!category) throw new Error('PO Category not found');
+// async function generatePONumber(categoryId) {
+//   try {
+//     const category = await POCategory.findById(categoryId);
+//     if (!category) throw new Error('PO Category not found');
     
 
-    console.log('Category range:', category.rangeFrom, 'to', category.rangeTo);
+//     console.log('Category range:', category.rangeFrom, 'to', category.rangeTo);
     
-    // Find ALL POs for this category to determine the highest number
-    const existingPOs = await PurchaseOrder.find({ 
-      categoryId, poNumberType: 'internal'
-    }).select('poNumber');
+//     // Find ALL POs for this category to determine the highest number
+//     const existingPOs = await PurchaseOrder.find({ 
+//       categoryId
+//     }).select('poNumber');
     
-    let nextNumber = category.rangeFrom;
+//     let nextNumber = category.rangeFrom;
     
-    if (existingPOs.length > 0) {
-      console.log('Found existing POs:', existingPOs.length);
+//     if (existingPOs.length > 0) {
+//       console.log('Found existing POs:', existingPOs.length);
       
-      // Extract all numbers and find the maximum
-      const usedNumbers = existingPOs
-        .map(po => {
-          const numberPart = po.poNumber;
-          return parseInt(numberPart, 10);
-        })
-        .filter(num => !isNaN(num)); // Filter out invalid numbers
+//       // Extract all numbers and find the maximum
+//       const usedNumbers = existingPOs
+//         .map(po => {
+//           const numberPart = po.poNumber;
+//           return parseInt(numberPart, 10);
+//         })
+//         .filter(num => !isNaN(num)); // Filter out invalid numbers
       
-      if (usedNumbers.length > 0) {
-        const maxUsedNumber = Math.max(...usedNumbers);
-        console.log('Highest used number:', maxUsedNumber);
-        nextNumber = maxUsedNumber + 1;
-      }
-    }
+//       if (usedNumbers.length > 0) {
+//         const maxUsedNumber = Math.max(...usedNumbers);
+//         console.log('Highest used number:', maxUsedNumber);
+//         nextNumber = maxUsedNumber + 1;
+//       }
+//     }
     
-    console.log('Next number to use:', nextNumber);
+//     console.log('Next number to use:', nextNumber);
     
-    if (nextNumber > category.rangeTo) {
-      throw new Error(`PO number exceeded category range. Next: ${nextNumber}, Max: ${category.rangeTo}`);
-    }
+//     if (nextNumber > category.rangeTo) {
+//       throw new Error(`PO number exceeded category range. Next: ${nextNumber}, Max: ${category.rangeTo}`);
+//     }
     
-    const generatedPONumber = `${nextNumber.toString().padStart(6, '0')}`;
-    console.log('Generated PO Number:', generatedPONumber);
+//     const generatedPONumber = `${nextNumber.toString().padStart(6, '0')}`;
+//     console.log('Generated PO Number:', generatedPONumber);
     
-    // Optional: Add a check to ensure this number doesn't already exist
-    const existingPO = await PurchaseOrder.findOne({ poNumber: generatedPONumber });
-    if (existingPO) {
-      throw new Error(`PO number ${generatedPONumber} already exists`);
-    }
+//     // Optional: Add a check to ensure this number doesn't already exist
+//     const existingPO = await PurchaseOrder.findOne({ poNumber: generatedPONumber });
+//     if (existingPO) {
+//       throw new Error(`PO number ${generatedPONumber} already exists`);
+//     }
     
-    return generatedPONumber;
-  } catch (error) {
-    console.error('Error in generatePONumber:', error);
-    throw error;
-  }
-}
+//     return generatedPONumber;
+//   } catch (error) {
+//     console.error('Error in generatePONumber:', error);
+//     throw error;
+//   }
+// }
 
 // Alternative approach: Use a counter field in the category
 async function generatePONumberWithCounter(categoryId) {
@@ -316,6 +316,62 @@ async function generatePONumberWithCounter(categoryId) {
     return generatedPONumber;
   } catch (error) {
     console.error('Error in generatePONumberWithCounter:', error);
+    throw error;
+  }
+}
+
+async function generatePONumber(categoryId) {
+  try {
+    const category = await POCategory.findById(categoryId);
+    if (!category) throw new Error('PO Category not found');
+
+    console.log('Category range:', category.rangeFrom, 'to', category.rangeTo);
+
+    // Find ALL POs for this category
+    const existingPOs = await PurchaseOrder.find({ categoryId }).select('poNumber');
+
+    // Start from rangeFrom
+    let nextNumber = category.rangeFrom;
+
+    if (existingPOs.length > 0) {
+      const usedNumbers = existingPOs
+        .map(po => parseInt(po.poNumber, 10))
+        .filter(num => !isNaN(num));
+
+      if (usedNumbers.length > 0) {
+        const maxUsedNumber = Math.max(...usedNumbers);
+        nextNumber = maxUsedNumber + 1;
+      }
+    }
+
+    console.log('Initial next number to try:', nextNumber);
+
+    // Retry loop: find first unused number in range
+    let generatedPONumber = null;
+    while (nextNumber <= category.rangeTo) {
+      const candidate = `${nextNumber.toString().padStart(6, '0')}`;
+
+      // Check if candidate exists
+      const exists = await PurchaseOrder.exists({ poNumber: candidate });
+      if (!exists) {
+        generatedPONumber = candidate;
+        break;
+      }
+
+      console.log(`PO Number ${candidate} already exists, trying next...`);
+      nextNumber++;
+    }
+
+    if (!generatedPONumber) {
+      throw new Error(
+        `No available PO numbers left in range ${category.rangeFrom}-${category.rangeTo}`
+      );
+    }
+
+    console.log('Generated PO Number:', generatedPONumber);
+    return generatedPONumber;
+  } catch (error) {
+    console.error('Error in generatePONumber:', error);
     throw error;
   }
 }
@@ -387,6 +443,7 @@ exports.createPO = async (req, res) => {
 
     // Save PO with additional fields
     const newPO = new PurchaseOrder({
+      ...req.body,
       poNumber,
       categoryId,
       category,

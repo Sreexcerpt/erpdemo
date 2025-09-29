@@ -61,6 +61,15 @@ const ItemSchema = new mongoose.Schema({
   materialgroup: String,
   buyerGroup: String,
   deliveryDate: String,
+  cgst: Number,
+  sgst: Number,
+  igst: Number,
+  discount: Number, // Item-level discount
+  itemSubtotal: Number, // Calculated subtotal before tax
+  cgstAmount: Number, // Calculated CGST amount
+  sgstAmount: Number, // Calculated SGST amount
+  igstAmount: Number, // Calculated IGST amount
+  itemTotalWithTax: Number, // Final item total with tax
 });
 
 const PurchaseOrderSchema = new mongoose.Schema({
@@ -89,7 +98,7 @@ const PurchaseOrderSchema = new mongoose.Schema({
   finalTotal: Number,
   companyId: { type: mongoose.Schema.Types.ObjectId, ref: 'Company' },
   financialYear: String,
-  
+
   // New approval fields
   status: {
     type: String,
@@ -98,14 +107,14 @@ const PurchaseOrderSchema = new mongoose.Schema({
   },
   approvalDate: String,
   approvalComments: String,
-  
+
   // Timestamps
   createdAt: { type: Date, default: Date.now },
   updatedAt: { type: Date, default: Date.now }
 });
 
 // Update the updatedAt field before saving
-PurchaseOrderSchema.pre('save', function(next) {
+PurchaseOrderSchema.pre('save', function (next) {
   this.updatedAt = Date.now();
   next();
 });

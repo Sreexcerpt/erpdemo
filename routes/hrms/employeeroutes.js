@@ -1,6 +1,6 @@
 const express = require("express");
 const router = express.Router();
-const facultyController = require("../../controllers/hrms/employeeController");
+const facultyController = require("../../controllers/hrms/employeecontroller");
 //const upload = require("../middleware/uploadMiddleware"); // Your multer config
 router.get('/employees', facultyController.getAllEmployees);
 // router.post("/", upload.single("profilePhoto"), facultyController.createFaculty);

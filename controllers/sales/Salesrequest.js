@@ -46,7 +46,7 @@ exports.createIndent = async (req, res) => {
       // Find all internal indents for this category to get the highest number
       const existingIndents = await SalesRequest.find({
         categoryId,
-        indentIdType: 'internal'
+        // indentIdType: 'internal'
       }).select('indentId');
 
       let nextNumber = rangeStart;

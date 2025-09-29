@@ -787,6 +787,12 @@ getAllEmployees: async (req, res) => {
       employeeId: { $exists: true, $ne: null, $ne: "" }
     };
     
+    // Add companyId filter if provided
+    const { companyId } = req.query;
+    if (companyId) {
+      filter.companyId = companyId;
+      console.log("Filtering by companyId:", companyId);
+    }
     // Only add descriptor filter if we need employees with face data
     // If you want ALL employees regardless of face data, remove these lines:
     filter.descriptor = { $exists: true, $ne: null };

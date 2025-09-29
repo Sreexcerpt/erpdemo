@@ -50,5 +50,8 @@ router.post('/', attendanceController.markAttendance);
 
 // Auto attendance (IN/OUT toggle)
 router.post('/auto', attendanceController.autoAttendance);
+router.put('/update/:date',attendanceController.updaterecord);
+router.delete('/delete/:date/:employeeObjectId',attendanceController.deletebyid);
+router.delete('/bulk-delete',attendanceController.deleteall)
 
 module.exports = router;
