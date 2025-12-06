@@ -211,11 +211,11 @@ exports.createIndent = async (req, res) => {
 exports.getAllIndents = async (req, res) => {
 
   try {
-     const { companyId, financialYear } = req.query;
-console.log('Fetching all indents for companyId:', companyId, 'and financialYear:', financialYear);
+     const { companyId } = req.query;
+console.log('Fetching all indents for companyId:', companyId);
     const filter = {};
     if (companyId) filter.companyId = companyId;
-    if (financialYear) filter.financialYear = financialYear;
+ 
 
     const allIndents = await IndentRequest.find(filter).sort({ createdAt: -1 });
     res.status(200).json(allIndents);

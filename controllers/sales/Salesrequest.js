@@ -46,7 +46,7 @@ exports.createIndent = async (req, res) => {
       // Find all internal indents for this category to get the highest number
       const existingIndents = await SalesRequest.find({
         categoryId,
-        // indentIdType: 'internal'
+        indentIdType: 'internal'
       }).select('indentId');
 
       let nextNumber = rangeStart;
@@ -111,11 +111,10 @@ exports.createIndent = async (req, res) => {
 // controllers/indentController.js
 exports.getAllIndents = async (req, res) => { 
   try {
-    const { companyId, financialYear } = req.query;
+    const { companyId } = req.query;
 
     const filter = {};
     if (companyId) filter.companyId = companyId;
-    if (financialYear) filter.financialYear = financialYear;
     const allIndents = await SalesRequest.find(filter).sort({ createdAt: -1 });
     res.status(200).json(allIndents);
   } catch (err) {

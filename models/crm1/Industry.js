@@ -37,7 +37,6 @@ const industrySchema = new mongoose.Schema({
   },
   financialYear: {
     type: String,
-    required: true
   },
   isActive: {
     type: Boolean,
@@ -47,6 +46,6 @@ const industrySchema = new mongoose.Schema({
   timestamps: true
 });
 
-industrySchema.index({ companyId: 1, financialYear: 1 });
+industrySchema.index({ companyId: 1,  });
 
 module.exports = mongoose.model('Industry', industrySchema);

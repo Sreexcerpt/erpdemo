@@ -4,8 +4,8 @@ const campaignController = {
   // Get all campaigns
   getCampaigns: async (req, res) => {
     try {
-      const { companyId, financialYear } = req.query;
-      const campaigns = await Campaign.find({ companyId, financialYear }).sort({ createdAt: -1 });
+      const { companyId } = req.query;
+      const campaigns = await Campaign.find({ companyId}).sort({ createdAt: -1 });
       res.json(campaigns);
     } catch (error) {
       res.status(500).json({ error: error.message });

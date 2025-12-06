@@ -4,8 +4,8 @@ const campaignController = {
   // Get all campaigns
   getCampaigns: async (req, res) => {
     try {
-      const { companyId, financialYear } = req.query;
-      const campaigns = await Campaign.find({ companyId, financialYear }).sort({ createdAt: -1 });
+      const { companyId } = req.query;
+      const campaigns = await Campaign.find({ companyId }).sort({ createdAt: -1 });
       res.json(campaigns);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -15,10 +15,12 @@ const campaignController = {
   // Create new campaign
   createCampaign: async (req, res) => {
     try {
+      console.log('Creating campaign for:', req.body);
       const campaign = new Campaign(req.body);
       await campaign.save();
       res.status(201).json(campaign);
     } catch (error) {
+      console.error('Error creating campaign:', error);
       res.status(400).json({ error: error.message });
     }
   },

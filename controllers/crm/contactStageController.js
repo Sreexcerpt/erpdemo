@@ -4,8 +4,8 @@ const contactStageController = {
   // Get all contact stages
   getContactStages: async (req, res) => {
     try {
-      const { companyId, financialYear } = req.query;
-      const contactStages = await ContactStage.find({ companyId, financialYear }).sort({ order: 1 });
+      const { companyId } = req.query;
+      const contactStages = await ContactStage.find({ companyId }).sort({ order: 1 });
       res.json(contactStages);
     } catch (error) {
       res.status(500).json({ error: error.message });
@@ -76,13 +76,13 @@ const contactStageController = {
         return res.status(404).json({ error: 'Contact stage not found' });
       }
 
-      const { companyId, financialYear, order: currentOrder } = currentStage;
+      const { companyId,  order: currentOrder } = currentStage;
       
       if (direction === 'up' && currentOrder > 1) {
         // Find the stage with order = currentOrder - 1
         const prevStage = await ContactStage.findOne({
           companyId,
-          financialYear,
+          
           order: currentOrder - 1
         });
         
@@ -95,7 +95,7 @@ const contactStageController = {
         // Find the stage with order = currentOrder + 1
         const nextStage = await ContactStage.findOne({
           companyId,
-          financialYear,
+          
           order: currentOrder + 1
         });
         

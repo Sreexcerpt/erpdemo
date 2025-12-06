@@ -4,8 +4,8 @@ const sourceController = {
   // Get all sources
   getSources: async (req, res) => {
     try {
-      const { companyId, financialYear } = req.query;
-      const sources = await Source.find({ companyId, financialYear }).sort({ createdAt: -1 });
+      const { companyId } = req.query;
+      const sources = await Source.find({ companyId}).sort({ createdAt: -1 });
       res.json(sources);
     } catch (error) {
       res.status(500).json({ error: error.message });

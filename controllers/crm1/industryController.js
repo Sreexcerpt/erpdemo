@@ -4,8 +4,8 @@ const industryController = {
   // Get all industries
   getIndustries: async (req, res) => {
     try {
-      const { companyId, financialYear } = req.query;
-      const industries = await Industry.find({ companyId, financialYear }).sort({ createdAt: -1 });
+      const { companyId } = req.query;
+      const industries = await Industry.find({ companyId}).sort({ createdAt: -1 });
       res.json(industries);
     } catch (error) {
       res.status(500).json({ error: error.message });

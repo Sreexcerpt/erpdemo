@@ -33,7 +33,7 @@ function organizePermissions(permissions) {
       "Material Receipt", "Material Receipt List", "Material Issue",
       "Material Transfer", "Material Issue List", "Stock List"
     ],
-    "Invoice": ["Invoice Form", "Invoice List"],
+    "Invoice": ["Invoice Form", "Invoice List","Diea Invoice","Diea Company"],
     "Billing": ["Billing Form", "Billing List"],
     "Accounts": ["GST", "Ledger", "Payments"],
     "CRM": [

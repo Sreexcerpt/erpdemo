@@ -82,7 +82,6 @@ const campaignSchema = new mongoose.Schema({
   },
   financialYear: {
     type: String,
-    required: true
   },
   isActive: {
     type: Boolean,
@@ -92,7 +91,7 @@ const campaignSchema = new mongoose.Schema({
   timestamps: true
 });
 
-campaignSchema.index({ companyId: 1, financialYear: 1 });
+campaignSchema.index({ companyId: 1,  });
 campaignSchema.index({ status: 1 });
 campaignSchema.index({ startDate: 1, endDate: 1 });
 

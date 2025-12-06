@@ -198,7 +198,6 @@ const leadSchema = new mongoose.Schema({
   },
   financialYear: {
     type: String,
-    required: true
   },
   isActive: {
     type: Boolean,
@@ -208,7 +207,7 @@ const leadSchema = new mongoose.Schema({
   timestamps: true
 });
 
-leadSchema.index({ companyId: 1, financialYear: 1 });
+leadSchema.index({ companyId: 1,  });
 leadSchema.index({ email: 1 });
 leadSchema.index({ campaignId: 1 });
 leadSchema.index({ leadStatus: 1 });

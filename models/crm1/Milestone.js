@@ -49,7 +49,6 @@ const milestoneSchema = new mongoose.Schema({
   },
   financialYear: {
     type: String,
-    required: true
   },
   isActive: {
     type: Boolean,
@@ -59,7 +58,7 @@ const milestoneSchema = new mongoose.Schema({
   timestamps: true
 });
 
-milestoneSchema.index({ companyId: 1, financialYear: 1 });
+milestoneSchema.index({ companyId: 1,  });
 milestoneSchema.index({ projectId: 1 });
 
 module.exports = mongoose.model('Milestone', milestoneSchema);

@@ -4,8 +4,8 @@
 //   // Get all projects
 //   getProjects: async (req, res) => {
 //     try {
-//       const { companyId, financialYear } = req.query;
-//       const projects = await Project.find({ companyId, financialYear }).sort({ createdAt: -1 });
+//       const { companyId } = req.query;
+//       const projects = await Project.find({ companyId}).sort({ createdAt: -1 });
 //       res.json(projects);
 //     } catch (error) {
 //       res.status(500).json({ error: error.message });
@@ -75,9 +75,9 @@ const projectController = {
   // Get all projects
   getProjects: async (req, res) => {
     try {
-      const { companyId, financialYear } = req.query;
+      const { companyId } = req.query;
 
-      const projects = await Project.find({ companyId, financialYear })
+      const projects = await Project.find({ companyId})
         .sort({ createdAt: -1 })
         .populate("projectManager", "firstName lastName email employeeId department profilePhoto") // populate specific fields
         .populate("teamMembers", "firstName lastName email employeeId department profilePhoto"); // populate specific fields

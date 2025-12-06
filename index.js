@@ -54,7 +54,7 @@ const contactRoutes = require('./routes/crm/contactRoutes'); // Ensure this is t
 const leadRoutes = require('./routes/crm/leadRoutes');
 const proposalRoutes = require('./routes/crm/ProposalRoutes');
 
-
+const googleSheetsService = require('./services/googleSheetsService');
 
 
 //HRMS
@@ -64,7 +64,7 @@ const employeeRoutes = require('./routes/hrms/employeeroutes')
 const designationRoutes = require('./routes/hrms/designation')
 
 const salaryRoutes = require("./routes/hrms/salary"); const leaveRoutes = require('./routes/hrms/Leave');
-
+const dieaRoutes = require('./routes/diea/diea');
 const attendanceRoutes = require('./routes/hrms/attendanceRoutes');
 const app = express();
 app.use(cors());
@@ -105,7 +105,7 @@ app.get('/api/image/:filename', (req, res) => {
   }
 });
 
-
+app.set('trust proxy', true);
 app.use('/api/del', salesDeliveryRoutes);
 app.use('/api/category', categoryRoutes);
 app.use('/api/material', materialRoutes);
@@ -205,7 +205,14 @@ app.use('/api/attendance', employeeRoutes);
 
 // API Routes
 app.use('/api/master-data', masterDataImportRoutes);
+
+
+
+app.use('/api/dieacompanies', require('./routes/diea/diea'));
+app.use('/api/dieainvoices', require('./routes/diea/dieainvoice'));
+
 app.use(history());
+
 app.use(express.static(path.join(__dirname, 'dist')));
 
 // Fallback route for SPA (React Router)

@@ -5,7 +5,7 @@ exports.createTax = async (req, res) => {
   try {
     const { taxCode, taxName, cgst, sgst, igst, companyId, financialYear } = req.body;
     console.log("Creating tax entry:", req.body);
-    if (!taxCode || !taxName || !cgst || !sgst  || !companyId || !financialYear) {
+    if (!taxCode || !taxName || !companyId ) {
       return res.status(400).json({ error: 'All fields are required' });
     }
 
@@ -21,8 +21,8 @@ exports.createTax = async (req, res) => {
 // Get all tax entries
 exports.getTaxes = async (req, res) => {
   try {
-    const { companyId, financialYear } = req.query;
-    const taxes = await Tax.find({ companyId, financialYear }).sort({ createdAt: -1 });
+    const { companyId } = req.query;
+    const taxes = await Tax.find({ companyId}).sort({ createdAt: -1 });
     res.json(taxes);
   } catch (err) { 
     console.error('Get Taxes Error:', err);

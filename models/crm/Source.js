@@ -17,7 +17,6 @@ const sourceSchema = new mongoose.Schema({
   },
   financialYear: {
     type: String,
-    required: true
   },
   isActive: {
     type: Boolean,
@@ -28,6 +27,6 @@ const sourceSchema = new mongoose.Schema({
 });
 
 // Create compound index for efficient querying
-sourceSchema.index({ companyId: 1, financialYear: 1 });
+sourceSchema.index({ companyId: 1 });
 
 module.exports = mongoose.model('Source', sourceSchema);

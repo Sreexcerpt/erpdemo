@@ -22,7 +22,6 @@ const lostReasonSchema = new mongoose.Schema({
   },
   financialYear: {
     type: String,
-    required: true
   },
   isActive: {
     type: Boolean,
@@ -32,6 +31,6 @@ const lostReasonSchema = new mongoose.Schema({
   timestamps: true
 });
 
-lostReasonSchema.index({ companyId: 1, financialYear: 1 });
+lostReasonSchema.index({ companyId: 1,  });
 
 module.exports = mongoose.model('LostReason', lostReasonSchema);

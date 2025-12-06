@@ -113,15 +113,11 @@ exports.createCustomer = async (req, res) => {
 };
 // Get all customers
 exports.getCustomers = async (req, res) => {
-  try { const { companyId, financialYear } = req.query;
+  try {
+    const { companyId } = req.query;
 
     const filter = {};
     if (companyId) filter.companyId = companyId;
-    if (financialYear) filter.financialYear = financialYear;
-
-   
-
-
     const customers = await Customer.find(filter).populate('categoryId');
     res.json(customers);
   } catch (error) {

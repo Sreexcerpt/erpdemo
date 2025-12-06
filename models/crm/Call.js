@@ -27,7 +27,7 @@ const callSchema = new mongoose.Schema({
   },
   financialYear: {
     type: String,
-    required: true
+    
   },
   isActive: {
     type: Boolean,
@@ -37,6 +37,6 @@ const callSchema = new mongoose.Schema({
   timestamps: true
 });
 
-callSchema.index({ companyId: 1, financialYear: 1 });
+callSchema.index({ companyId: 1, });
 
 module.exports = mongoose.model('Call', callSchema);

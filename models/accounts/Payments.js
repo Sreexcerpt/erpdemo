@@ -121,7 +121,6 @@ const paymentSchema = new mongoose.Schema({
   },
   financialYear: {
     type: String,
-    required: true
   },
   // Additional metadata
   tags: [String],
@@ -142,7 +141,7 @@ paymentSchema.index({ recordId: 1, paymentDate: -1 });
 paymentSchema.index({ entityName: 1, paymentDate: -1 });
 paymentSchema.index({ paymentDocNumber: 1 });
 paymentSchema.index({ recordType: 1, status: 1 });
-paymentSchema.index({ financialYear: 1, companyId: 1 });
+paymentSchema.index({  companyId: 1 });
 
 // Virtual for formatted payment amount
 paymentSchema.virtual('formattedAmount').get(function() {

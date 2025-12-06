@@ -1263,7 +1263,7 @@ router.get('/:masterDataType/template/:format', (req, res) => {
 router.get('/:masterDataType/import-history', async (req, res) => {
   try {
     const { masterDataType } = req.params;
-    const { companyId, financialYear } = req.query;
+    const { companyId } = req.query;
 
     if (!masterDataConfig[masterDataType]) {
       return res.status(400).json({

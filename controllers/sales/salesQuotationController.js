@@ -109,11 +109,10 @@ console.log('req body for sale quotation:', req.body);
 };
 // Get all quotations
 exports.getAllQuotations = async (req, res) => {
-  const { companyId, financialYear } = req.query;
+  const { companyId } = req.query;
 
     const filter = {};
     if (companyId) filter.companyId = companyId;
-    if (financialYear) filter.financialYear = financialYear;
   try {
     const quotations = await SalesQuotation.find(filter).populate('categoryId customerId');
     res.json(quotations);

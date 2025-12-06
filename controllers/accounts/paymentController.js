@@ -251,13 +251,12 @@ const deletePayment = async (req, res) => {
 // GET /api/payment-summary - Get payment analytics
 const getPaymentSummary = async (req, res) => {
   try {
-    const { companyId, financialYear, recordType } = req.query;
-    
-    console.log('Summary request params:', { companyId, financialYear, recordType });
-    
+    const { companyId, recordType } = req.query;
+
+    console.log('Summary request params:', { companyId, recordType });
+
     const matchFilter = {};
     if (companyId) matchFilter.companyId = new mongoose.Types.ObjectId(companyId);
-    if (financialYear) matchFilter.financialYear = financialYear;
     if (recordType) matchFilter.recordType = recordType;
 
     console.log('Match filter:', matchFilter);

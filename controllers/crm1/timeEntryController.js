@@ -4,8 +4,8 @@ const timeEntryController = {
   // Get all time entries
   getTimeEntries: async (req, res) => {
     try {
-      const { companyId, financialYear } = req.query;
-      const timeEntries = await TimeEntry.find({ companyId, financialYear })
+      const { companyId } = req.query;
+      const timeEntries = await TimeEntry.find({ companyId})
         .populate('projectId', 'projectName')
         .populate('taskId', 'taskName')
         .sort({ date: -1, createdAt: -1 });

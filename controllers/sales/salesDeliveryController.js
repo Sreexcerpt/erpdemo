@@ -131,20 +131,19 @@ exports.createSalesDelivery = async (req, res) => {
 
 // Get All Sales Deliveries
 exports.getAllSalesDeliveries = async (req, res) => {
-  const { companyId, financialYear } = req.query;
+  const { companyId } = req.query;
   
-  if (!companyId || !financialYear) {
+  if (!companyId ) {
     return res.status(400).json({ 
       error: 'companyId and financialYear are required' 
     });
   }
   
-  console.log('Fetching sales deliveries for:', companyId, financialYear);
+  console.log('Fetching sales deliveries for:', companyId);
   
   try {
     const deliveries = await SalesDelivery.find({ 
-      companyId, 
-      financialYear 
+      companyId
     })
     .populate('salesOrderId', 'soNumber customerName')
     .populate('categoryId', 'categoryName')
@@ -228,7 +227,7 @@ exports.deleteSalesDelivery = async (req, res) => {
 exports.getDeliveriesBySalesOrder = async (req, res) => {
   try {
     const { salesOrderId } = req.params;
-    const { companyId, financialYear } = req.query;
+    const { companyId } = req.query;
     
     const deliveries = await SalesDelivery.find({ 
       salesOrderId,
@@ -285,7 +284,7 @@ exports.updateDeliveryStatus = async (req, res) => {
 // Get Delivery Statistics
 exports.getDeliveryStatistics = async (req, res) => {
   try {
-    const { companyId, financialYear } = req.query;
+    const { companyId } = req.query;
     
     if (!companyId || !financialYear) {
       return res.status(400).json({ 

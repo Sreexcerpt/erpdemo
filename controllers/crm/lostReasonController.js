@@ -4,8 +4,8 @@ const lostReasonController = {
   // Get all lost reasons
   getLostReasons: async (req, res) => {
     try {
-      const { companyId, financialYear } = req.query;
-      const lostReasons = await LostReason.find({ companyId, financialYear }).sort({ createdAt: -1 });
+      const { companyId } = req.query;
+      const lostReasons = await LostReason.find({ companyId }).sort({ createdAt: -1 });
       res.json(lostReasons);
     } catch (error) {
       res.status(500).json({ error: error.message });

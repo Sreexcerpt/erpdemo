@@ -51,7 +51,6 @@ const taskSchema = new mongoose.Schema({
   },
   financialYear: {
     type: String,
-    required: true
   },
   isActive: {
     type: Boolean,
@@ -61,7 +60,7 @@ const taskSchema = new mongoose.Schema({
   timestamps: true
 });
 
-taskSchema.index({ companyId: 1, financialYear: 1 });
+taskSchema.index({ companyId: 1,  });
 taskSchema.index({ projectId: 1 });
 
 module.exports = mongoose.model('Task', taskSchema);

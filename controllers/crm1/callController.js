@@ -4,8 +4,8 @@ const callController = {
   // Get all calls
   getCalls: async (req, res) => {
     try {
-      const { companyId, financialYear } = req.query;
-      const calls = await Call.find({ companyId, financialYear }).sort({ createdAt: -1 });
+      const { companyId } = req.query;
+      const calls = await Call.find({ companyId}).sort({ createdAt: -1 });
       res.json(calls);
     } catch (error) {
       res.status(500).json({ error: error.message });

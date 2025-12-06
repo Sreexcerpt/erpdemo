@@ -42,7 +42,6 @@ const timeEntrySchema = new mongoose.Schema({
   },
   financialYear: {
     type: String,
-    required: true
   },
   isActive: {
     type: Boolean,
@@ -52,7 +51,7 @@ const timeEntrySchema = new mongoose.Schema({
   timestamps: true
 });
 
-timeEntrySchema.index({ companyId: 1, financialYear: 1 });
+timeEntrySchema.index({ companyId: 1,  });
 timeEntrySchema.index({ projectId: 1 });
 timeEntrySchema.index({ taskId: 1 });
 timeEntrySchema.index({ date: 1 });

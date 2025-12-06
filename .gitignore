@@ -5,12 +5,7 @@ node_modules/
 logs/
 *.log
 *.rar
-# Environment variables
-.env
 
-# # Build output
-# dist/
-# build/
 
 # OS generated files
 .DS_Store

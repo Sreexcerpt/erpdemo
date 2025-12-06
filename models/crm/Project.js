@@ -60,7 +60,6 @@ const projectSchema = new mongoose.Schema({
   },
   financialYear: {
     type: String,
-    required: true
   },
   isActive: {
     type: Boolean,
@@ -70,6 +69,6 @@ const projectSchema = new mongoose.Schema({
   timestamps: true
 });
 
-projectSchema.index({ companyId: 1, financialYear: 1 });
+projectSchema.index({ companyId: 1 });
 
 module.exports = mongoose.model('Project', projectSchema);

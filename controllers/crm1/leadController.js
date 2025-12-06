@@ -5,8 +5,8 @@ const leadController = {
   // Get all leads
   getLeads: async (req, res) => {
     try {
-      const { companyId, financialYear } = req.query;
-      const leads = await Lead.find({ companyId, financialYear })
+      const { companyId } = req.query;
+      const leads = await Lead.find({ companyId})
         .populate('campaignId', 'campaignName')
         .sort({ createdAt: -1 });
       
@@ -125,12 +125,11 @@ const leadController = {
   getLeadsByCampaign: async (req, res) => {
     try {
       const { campaignId } = req.params;
-      const { companyId, financialYear } = req.query;
+      const { companyId } = req.query;
       
       const leads = await Lead.find({ 
         campaignId, 
         companyId, 
-        financialYear 
       }).populate('campaignId', 'campaignName');
       
       res.json(leads);

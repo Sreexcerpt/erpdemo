@@ -112,11 +112,10 @@ exports.createContract = async (req, res) => {
 // Get All Contracts
 exports.getAllContracts = async (req, res) => {
     try {
-        const { companyId, financialYear } = req.query;
+        const { companyId } = req.query;
 
     const filter = {};
     if (companyId) filter.companyId = companyId;
-    if (financialYear) filter.financialYear = financialYear;
 
         const contracts = await Contract.find(filter)
 

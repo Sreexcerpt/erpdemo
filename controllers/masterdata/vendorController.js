@@ -90,13 +90,12 @@ exports.updateVendorStatus = async (req, res) => {
 exports.getVendorById = async (req, res) => {
   try {
     const { id } = req.params;
-    const { companyId, financialYear } = req.query;
+    const { companyId } = req.query;
 
     const filter = {};
 
     // Filter by companyId and financialYear if provided
     if (companyId) filter.companyId = companyId;
-    if (financialYear) filter.financialYear = financialYear;
 
     // If it's a valid ObjectId, include _id in the OR filter
     if (mongoose.Types.ObjectId.isValid(id)) {

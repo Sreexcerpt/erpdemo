@@ -4,8 +4,8 @@ const milestoneController = {
   // Get all milestones
   getMilestones: async (req, res) => {
     try {
-      const { companyId, financialYear } = req.query;
-      const milestones = await Milestone.find({ companyId, financialYear })
+      const { companyId } = req.query;
+      const milestones = await Milestone.find({ companyId})
         .populate('projectId', 'projectName')
         .sort({ createdAt: -1 });
       res.json(milestones);

@@ -4,8 +4,8 @@ const taskController = {
   // Get all tasks
   getTasks: async (req, res) => {
     try {
-      const { companyId, financialYear } = req.query;
-      const tasks = await Task.find({ companyId, financialYear })
+      const { companyId } = req.query;
+      const tasks = await Task.find({ companyId})
         .populate('projectId', 'projectName')
         .sort({ createdAt: -1 });
       res.json(tasks);
